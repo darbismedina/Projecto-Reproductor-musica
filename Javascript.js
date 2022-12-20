@@ -32,8 +32,16 @@ const titulo = document.getElementById("titulo");
 const play = document.getElementById("play");
 const prev = document.getElementById("prev");
 const next = document.getElementById("next");
+const progress = document.getElementById("progress");
+const progressContainer = document.getElementById("progress-container");
 
-// Escuchar clicks en el boton play
+// Evento barra de progreso hacerla clicable
+progressContainer.addEventListener("click", setProgress);
+
+// Escuchar el elemnto Audio
+audio.addEventListener("timeupdate", updateProgress);
+
+// Escuchar clicks en los controles
 play.addEventListener("click", () => {
    if(audio.paused){
       playSong();
@@ -41,6 +49,9 @@ play.addEventListener("click", () => {
       pauseSong();
    }
 })
+
+next.addEventListener("click", () => nextSong());
+prev.addEventListener("click",  () => prevSong());
 
 //mostra listado de canciones
 function loadSongs(){
@@ -83,6 +94,26 @@ function loadSong(songIndex){
 
 }
 
+// Actualizar barra de progrso de la cancion
+function updateProgress(event){
+   const {duration,currentTime} = event.srcElement;
+   const percent = (currentTime / duration) * 100;
+   progress.style.width = percent + "%";
+  
+   
+
+}
+
+// Hacer la barra de progreso clicable
+ function setProgress(event) {
+   const totalWidth = this.offsetWidth;
+   const progressWidth = event.offsetX;
+   const current = (progressWidth / totalWidth) * audio.duration;
+   audio.currentTime = current;
+   
+
+}
+
 //actualizar controles
 function updateControls(){
    if(audio.paused){
@@ -97,9 +128,11 @@ function updateControls(){
 
 // reproducir cancion
 function playSong(){
-   
-  audio.play()
-  updateControls();
+   if(actualSong !== null){
+      audio.play()
+      updateControls();
+   }
+
 }
 
 // pausar cancion
@@ -129,8 +162,29 @@ function changeSongtitulo(songIndex){
    titulo.innerText = songList[songIndex].titulo
 }
 
+// Anterior cancion 
+function prevSong(){
+   if(actualSong > 0){
+      loadSong(actualSong -1);
+   }else{
+      loadSong(songList.length -1);
+   }
 
+}
+//Siguiente cancion 
+function nextSong(){
+   if(actualSong < songList.length -1){
+      loadSong(actualSong +1);
+   }else{
+      loadSong(0)
+   }
+
+
+}
+
+// iniciar siguiente cancion al terminar la actual
+audio.addEventListener("ended", () => nextSong());
 
 // GO!
 
-loadSongs()
+loadSongs();
