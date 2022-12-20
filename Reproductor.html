@@ -4,24 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css" />
      <link rel="stylesheet" href="stilos css/stilioreproductor.css" type="text/css">
 
-    <title>Pizzaria</title>
+    <title>Reproductor</title>
 </head>
 <body>
     <!--player-->
     <main class="player">
 
         <!--titulo-->
-        <h1 class="titulo">Nueva Cancion</h1>
+        <h1 class="titulo" id="titulo"></h1>
 
         <!--cover-->
 
         <!--Audio HTML Media element-->
         <audio src="" id="audio"></audio>
 
-        <img src="imagen/marcantony.jpeg" alt="" class="cover" >
+        <img src="" alt="" class="cover" id="cover" >
         
         <!--progres bar-->
 
@@ -32,15 +32,15 @@
         <!--controles-->
         <section class="controls">
             <button class="prev">
-            <i class="fas fa-backward"></i>
+            <i id="prev" class="fas fa-backward"></i>
 
             </button>
-            <button class="play">
-                <i class="fas fa-play"></i>
+            <button class="play" >
+                <i id="play" class="fas fa-play"></i>
     
                 </button>
                 <button class="next">
-                    <i class="fas fa-forward"></i>
+                    <i id="next" class="fas fa-forward"></i>
         
                     </button>
         </section>
